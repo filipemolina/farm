@@ -6,7 +6,8 @@ import {
 	ATIVAR,
 	VENDER,
 	GANHAR_FELICIDADE,
-	PONTUAR
+	PONTUAR,
+	VIRAR_CARTA
 } from '../actions'
 
 const initialState = {
@@ -34,8 +35,35 @@ const initialState = {
 }
 
 export const jogador1Reducer = (state = initialState, action) => {
-	switch(action.type){
-		default:
-			return state
+
+	//Realizar modificações apenas caso o jogador atual seja o jogador 1
+	if(action.jogador && action.jogador === 'jogador1'){
+
+		switch(action.type){
+			case COMPRAR_CARTAS:
+				return {
+					...state,
+					mao: [
+						...state.mao,
+						...action.cartas
+					]
+				}
+			case VIRAR_CARTA:
+				return{
+					...state,
+					mao: state.mao.map(carta => {
+						if(carta.id === action.id)
+							carta.virada = !carta.virada
+						return carta
+					})
+				}
+			default:
+				return state
+		}
+
+	} else {
+
+		return state
+		
 	}
 }
