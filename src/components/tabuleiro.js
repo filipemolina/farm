@@ -52,39 +52,22 @@ const tabuleiro1 = {
 class Tabuleiro extends React.Component{
 	render(){
 
-		const { jogador } = this.props
+		const { jogador, campos, virarConstrucao } = this.props
 
 		return(
 			<Tab style={jogador === 1 ? tabuleiro1 : ""}>
 				<Campos>
-					<Campo className="campo1">
-						
-					</Campo>
-					<Campo className="campo2">
-						
-					</Campo>
-					<Campo className="campo3">
-						
-					</Campo>
-					<Campo className="campo4"></Campo>
-					<Campo className="campo5"></Campo>
-					<Campo className="campo6"></Campo>
-					<Campo className="campo7"></Campo>
-					<Campo className="campo8"></Campo>
-					<Campo className="campo9"></Campo>
-					<Campo className="campo10"></Campo>
-					<Campo className="campo11"></Campo>
-					<Campo className="campo12"></Campo>
-					<Campo className="campo13">
-						<Bloco tipo="construcao" nome="armazem" />
-					</Campo>
-					<Campo className="campo14">
-						<Bloco tipo="plantacao" nome="trigo" />
-					</Campo>
-					<Campo className="campo15">
-						<Bloco tipo="construcao" nome="torre" />
-					</Campo>
-					<Campo className="campo16"></Campo>
+					{campos.map(campo => (
+						<Campo key={campo.id} className={`campo${campo.id}`}>
+							{campo.construcao ? (
+								<Bloco 
+									key={campo.id} 
+									construcao={campo.construcao}
+									virar={() => virarConstrucao(campo.id)}
+								/>
+							): ""}
+						</Campo>
+					))}
 				</Campos>
 				<Felicidade>
 					<Nivel className="nivel8"></Nivel>

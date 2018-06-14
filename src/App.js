@@ -4,8 +4,16 @@ import Tabuleiro from './components/tabuleiro'
 import Mao from './components/Mao'
 import Mesa from './components/Mesa'
 import Descarte from './components/Descarte'
+import Deck from './components/Deck'
+import Popup from './components/Popup'
 
 import { connect } from 'react-redux'
+
+//////////////////////////////////////////////////////////////
+// Transformar o Popup, Tabuleiro, Deck e Bloco em pastas
+// Criar os menus de construção
+// Criar o medidor de felicidade
+// Girar o tabuleiro
 
 //Actions
 
@@ -14,6 +22,7 @@ import {
   embaralhar,
   virarCarta,
   jogarCarta,
+  virarConstrucao,
 }  from './actions'
 
 // Styled Component
@@ -42,7 +51,19 @@ class App extends Component {
 
   render() {
 
-    const { mao, jogadorAtual, virarCarta, jogarCarta, descarte } = this.props
+    const { 
+      mao, 
+      jogadorAtual, 
+      jogador1, 
+      jogador2, 
+      virarCarta, 
+      jogarCarta, 
+      descarte,
+      virarConstrucao,
+      comprarCartas,
+      deck,
+      mostrarPopup
+    } = this.props
 
     return (
       <Game>
@@ -53,9 +74,17 @@ class App extends Component {
           jogarCarta={carta => jogarCarta(jogadorAtual, carta)}
           mostrarBotoes={true}
         />
+        {mostrarPopup ? (
+          <Popup />
+        ):""}
         <Mesa>
-          <Tabuleiro jogador={1} />
-          <Descarte cartas={descarte}/>
+          <Tabuleiro 
+            jogador={1} 
+            campos={jogador1.campos} 
+            virarConstrucao={(campo_id => virarConstrucao('jogador1', campo_id))} 
+          />
+          <Descarte cartas={descarte} />
+          <Deck comprar={() => comprarCartas(jogadorAtual, [deck[0]])} />
         </Mesa>
       </Game>
     );
@@ -63,10 +92,13 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  jogadorAtual: state.gameInfo.jogadorAtual,
-  descarte:     state.descarte,
-  deck:         state.deck,
-  mao:          state[state.gameInfo.jogadorAtual].mao,
+  jogadorAtual:  state.gameInfo.jogadorAtual,
+  jogador1:      state.jogador1,
+  jogador2:      state.jogador2,
+  descarte:      state.descarte,
+  deck:          state.deck,
+  mao:           state[state.gameInfo.jogadorAtual].mao,
+  mostrarPopup: state.gameInfo.mostrar_popup,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -74,6 +106,7 @@ const mapDispatchToProps = dispatch => ({
   embaralhar: () => dispatch(embaralhar()),
   virarCarta: (jogador, id) => dispatch(virarCarta(jogador, id)),
   jogarCarta: (jogador, carta) => dispatch(jogarCarta(jogador, carta)),
+  virarConstrucao: (jogador, campo_id) => dispatch(virarConstrucao(jogador, campo_id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

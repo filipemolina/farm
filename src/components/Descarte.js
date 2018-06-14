@@ -7,9 +7,9 @@ const StldDescarte = styled.div`
 	height: 16vw;
 	position: absolute;
 	top: 50%;
-	margin-top: -6vw;
+	margin-top: -8vw;
 	left: 50%;
-	margin-left: -8vw;
+	margin-left: -6vw;
 	border: 0.8vw dashed rgba(255,255,255,0.7);
 `
 class Descarte extends Component {

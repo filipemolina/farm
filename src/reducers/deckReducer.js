@@ -53,7 +53,6 @@ export const deckReducer = (state=initialState, action) => {
 		case EMBARALHAR:
 			return shuffle(state)
 		case COMPRAR_CARTAS:
-			console.log("Cartas retiradas do deck", state.filter(item => action.cartas.includes(item)))
 			return state.filter(item => !action.cartas.includes(item))
 		default:
 			return state

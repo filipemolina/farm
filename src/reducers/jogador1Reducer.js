@@ -2,6 +2,7 @@ import {
 	COMPRAR_CARTAS,
 	JOGAR_CARTA,
 	CONSTRUIR,
+	VIRAR_CONSTRUCAO,
 	PLANTAR,
 	ATIVAR,
 	VENDER,
@@ -13,22 +14,22 @@ import {
 const initialState = {
 	mao: [],
 	campos: [
-		{ id:  1, construcao: "" },
-		{ id:  2, construcao: "" },
-		{ id:  3, construcao: "" },
-		{ id:  4, construcao: "" },
-		{ id:  5, construcao: "" },
-		{ id:  6, construcao: "" },
-		{ id:  7, construcao: "" },
-		{ id:  8, construcao: "" },
-		{ id:  9, construcao: "" },
-		{ id: 10, construcao: "" },
-		{ id: 11, construcao: "" },
-		{ id: 12, construcao: "" },
-		{ id: 13, construcao: "" },
-		{ id: 14, construcao: "" },
-		{ id: 15, construcao: "" },
-		{ id: 16, construcao: "" },
+		{ id:  1 },
+		{ id:  2 },
+		{ id:  3 },
+		{ id:  4 },
+		{ id:  5 },
+		{ id:  6 },
+		{ id:  7 },
+		{ id:  8 },
+		{ id:  9 },
+		{ id: 10 },
+		{ id: 11 },
+		{ id: 12 },
+		{ id: 13, construcao: { tipo: 'construcao', nome: 'armazem', classe: "" }},
+		{ id: 14, construcao: { tipo: 'plantacao',  nome: 'trigo', classe: "" }},
+		{ id: 15, construcao: { tipo: 'construcao', nome: 'torre', classe: "" }},
+		{ id: 16 },
 	],
 	produtos: [],
 	pontos: 0,
@@ -61,6 +62,24 @@ export const jogador1Reducer = (state = initialState, action) => {
 				return {
 					...state,
 					mao: state.mao.filter(carta => carta.id !== action.carta.id)
+				}
+			case VIRAR_CONSTRUCAO:
+				return {
+					...state,
+					// Modificar apenas o array "campos" dentro do state
+					campos: state.campos.map(campo => {
+						// Modificar apenas o campo com o id fornecido pela action
+						if(campo.id === action.campo_id){
+							// Colocar a nova classe de acordo com a classe antiga
+							if(campo.construcao.classe === "")
+								campo.construcao.classe = "rodar_bloco"
+							else if(campo.construcao.classe === "rodar_bloco")
+								campo.construcao.classe = "voltar_bloco"
+							else
+								campo.construcao.classe = "rodar_bloco"
+						}
+						return campo
+					})
 				}
 			default:
 				return state

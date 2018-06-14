@@ -3,6 +3,7 @@
 export const COMPRAR_CARTAS        = 'COMPRAR_CARTAS'
 export const JOGAR_CARTA           = 'JOGAR_CARTA'
 export const CONSTRUIR             = 'CONSTRUIR'
+export const VIRAR_CONSTRUCAO      = 'VIRAR_CONSTRUCAO'
 export const PLANTAR               = 'PLANTAR'
 export const ATIVAR                = 'ATIVAR'
 export const VENDER                = 'VENDER'
@@ -34,4 +35,10 @@ export const jogarCarta = (jogador, carta) => ({
 	type: JOGAR_CARTA,
 	jogador,
 	carta
+})
+
+export const virarConstrucao = (jogador, campo_id) => ({
+	type: VIRAR_CONSTRUCAO,
+	jogador,
+	campo_id
 })

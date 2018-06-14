@@ -59,11 +59,7 @@ const Face = styled.div`
 
 class Bloco extends Component {
 
-	state = {
-		classe: "null"
-	}
-
-	calculaNome = (tipo, nome) => {
+	calculaURLs = (tipo, nome) => {
 
 		let topo, fundo
 
@@ -81,31 +77,14 @@ class Bloco extends Component {
 		return { topo, fundo }
 	}
 
-	rodarBloco = () => {
-		if(this.state.classe === ""){
-			this.setState({
-				classe: "rodar_bloco"
-			})
-		} else if(this.state.classe === "rodar_bloco") {
-			this.setState({
-				classe: "voltar_bloco"
-			})
-		} else {
-			this.setState({
-				classe: "rodar_bloco"
-			})
-		}
-	}
-
 	render(){
 
-		const { tipo, nome } = this.props
-		const { classe } = this.state
+		const { construcao, virar } = this.props
 
-		const imagens = this.calculaNome(tipo, nome)
+		const imagens = this.calculaURLs(construcao.tipo, construcao.nome)
 
 		return(
-			<Cubo className={classe} onClick={this.rodarBloco}>
+			<Cubo className={construcao.classe} onClick={virar}>
 				<Face className="front"/>
 				<Face className="back" />
 				<Face className="left" />

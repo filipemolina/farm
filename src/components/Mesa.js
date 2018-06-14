@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const StldMesa = styled.div`
 	width: 100vw;
-	height: 250vh;
+	height: 230vh;
 	background-color: blue;
 	transform: perspective(980px) rotateX(50deg) translateZ(-70px) translateY(-110vh);
   perspective: 1260px;
