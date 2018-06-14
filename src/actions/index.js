@@ -29,3 +29,9 @@ export const virarCarta = (jogador, id) => ({
 	jogador,
 	id
 })
+
+export const jogarCarta = (jogador, carta) => ({
+	type: JOGAR_CARTA,
+	jogador,
+	carta
+})

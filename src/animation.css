@@ -1,0 +1,45 @@
+@keyframes rodarBloco {
+	0% {
+		transform: translateZ(0) rotateY(0);
+	}
+	33% {
+		transform: translateZ(5vw) rotateY(0);
+	}
+	66% {
+		transform: translateZ(5vw) rotateY(180deg);
+	}
+	100% {
+		transform: translateZ(0) rotateY(180deg);
+	}
+}
+
+@keyframes voltarBloco {
+	0% {
+		transform: translateZ(0) rotateY(180deg);
+	}
+	33% {
+		transform: translateZ(5vw) rotateY(180deg);
+	}
+	66% {
+		transform: translateZ(5vw) rotateY(0);
+	}
+	100% {
+		transform: translateZ(0) rotateY(0);
+	}
+}
+
+.rodar_bloco {
+	animation-name: rodarBloco;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-direction: normal;
+	animation-iteration-count: 1;
+}
+
+.voltar_bloco {
+	animation-name: voltarBloco;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-direction: normal;
+	animation-iteration-count: 1;	
+}

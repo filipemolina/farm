@@ -18,12 +18,18 @@ const StldMao = styled.div`
 class Mao extends Component {
 	render(){
 
-		const { cartas, virarCarta } = this.props
+		const { cartas, virarCarta, jogarCarta, mostrarBotoes } = this.props
 
 		return(
 			<StldMao>
 				{cartas.map(carta => (
-					<Carta carta={carta} key={carta.id} virar={() => virarCarta(carta.id)} />
+					<Carta 
+						carta={carta} 
+						key={carta.id} 
+						virar={() => virarCarta(carta.id)} 
+						jogar={() => jogarCarta(carta)}
+						mostrarBotoes={mostrarBotoes}
+					/>
 				))}
 			</StldMao>
 		)

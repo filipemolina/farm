@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import styled from 'styled-components'
 import Tabuleiro from './components/tabuleiro'
 import Mao from './components/Mao'
+import Mesa from './components/Mesa'
+import Descarte from './components/Descarte'
 
 import { connect } from 'react-redux'
 
@@ -11,7 +12,8 @@ import { connect } from 'react-redux'
 import { 
   comprarCartas,
   embaralhar,
-  virarCarta
+  virarCarta,
+  jogarCarta,
 }  from './actions'
 
 // Styled Component
@@ -20,11 +22,10 @@ const Game = styled.div`
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  display: flex;
+  display: flex;  
   justify-content: center;
   align-items: center;
 `
-
 class App extends Component {
   
   componentDidMount = () => {
@@ -41,12 +42,21 @@ class App extends Component {
 
   render() {
 
-    const { mao, jogadorAtual, virarCarta } = this.props
+    const { mao, jogadorAtual, virarCarta, jogarCarta, descarte } = this.props
 
     return (
       <Game>
-        <Mao cartas={mao} jogador={jogadorAtual} virarCarta={(id) => virarCarta(jogadorAtual, id)}/>
-        <Tabuleiro />
+        <Mao 
+          cartas={mao} 
+          jogador={jogadorAtual} 
+          virarCarta={id => virarCarta(jogadorAtual, id)}
+          jogarCarta={carta => jogarCarta(jogadorAtual, carta)}
+          mostrarBotoes={true}
+        />
+        <Mesa>
+          <Tabuleiro jogador={1} />
+          <Descarte cartas={descarte}/>
+        </Mesa>
       </Game>
     );
   }
@@ -54,14 +64,16 @@ class App extends Component {
 
 const mapStateToProps = (state, props) => ({
   jogadorAtual: state.gameInfo.jogadorAtual,
-  mao: state[state.gameInfo.jogadorAtual].mao,
-  deck: state.deck
+  descarte:     state.descarte,
+  deck:         state.deck,
+  mao:          state[state.gameInfo.jogadorAtual].mao,
 })
 
 const mapDispatchToProps = dispatch => ({
   comprarCartas: (jogador, cartas) => dispatch(comprarCartas(jogador, cartas)),
   embaralhar: () => dispatch(embaralhar()),
-  virarCarta: (jogador, id) => dispatch(virarCarta(jogador, id))
+  virarCarta: (jogador, id) => dispatch(virarCarta(jogador, id)),
+  jogarCarta: (jogador, carta) => dispatch(jogarCarta(jogador, carta)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

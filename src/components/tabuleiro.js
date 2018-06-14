@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import Bloco from './Bloco'
+
 const Tab = styled.div`
 	width: 55vw;
   height: 44vw;
-  transform: perspective(980px) rotateX(50deg) translateZ(-70px) translateY(10px);
-  perspective: 1260px;
   perspective-origin: 50%;
   transition: all 0.5s linear;
   background-image: url(/mapa/tabuleiro.png);
@@ -33,6 +33,7 @@ const Felicidade = styled.div`
 const Campo = styled.div`
 	width: 25%;
   height: 25%;
+  position: relative;
 `
 const Nivel = styled.div`
 	width: 44%;
@@ -41,14 +42,30 @@ const Nivel = styled.div`
   margin-left: 9%;
   margin-bottom: 5%;
 `
+const tabuleiro1 = {
+	position: 'absolute',
+	bottom: '5vh',
+	left: '50%',
+	marginLeft: '-27.5vw',
+}
+
 class Tabuleiro extends React.Component{
 	render(){
+
+		const { jogador } = this.props
+
 		return(
-			<Tab>
+			<Tab style={jogador === 1 ? tabuleiro1 : ""}>
 				<Campos>
-					<Campo className="campo1"></Campo>
-					<Campo className="campo2"></Campo>
-					<Campo className="campo3"></Campo>
+					<Campo className="campo1">
+						
+					</Campo>
+					<Campo className="campo2">
+						
+					</Campo>
+					<Campo className="campo3">
+						
+					</Campo>
 					<Campo className="campo4"></Campo>
 					<Campo className="campo5"></Campo>
 					<Campo className="campo6"></Campo>
@@ -58,9 +75,15 @@ class Tabuleiro extends React.Component{
 					<Campo className="campo10"></Campo>
 					<Campo className="campo11"></Campo>
 					<Campo className="campo12"></Campo>
-					<Campo className="campo13"></Campo>
-					<Campo className="campo14"></Campo>
-					<Campo className="campo15"></Campo>
+					<Campo className="campo13">
+						<Bloco tipo="construcao" nome="armazem" />
+					</Campo>
+					<Campo className="campo14">
+						<Bloco tipo="plantacao" nome="trigo" />
+					</Campo>
+					<Campo className="campo15">
+						<Bloco tipo="construcao" nome="torre" />
+					</Campo>
 					<Campo className="campo16"></Campo>
 				</Campos>
 				<Felicidade>

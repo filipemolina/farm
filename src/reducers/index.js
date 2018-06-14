@@ -6,6 +6,7 @@ import { jogador2Reducer } from './jogador2Reducer'
 import { plantacoesReducer } from './plantacoesReducer'
 import { produtosReducer } from './produtosReducer'
 import { gameInfoReducer } from './gameInfoReducer'
+import { descarteReducer } from './descarteReducer'
 
 export default combineReducers({
 	jogador1: jogador1Reducer,
@@ -15,4 +16,5 @@ export default combineReducers({
 	plantacoes: plantacoesReducer,
 	produtos: produtosReducer,
 	gameInfo: gameInfoReducer,
+	descarte: descarteReducer,
 })

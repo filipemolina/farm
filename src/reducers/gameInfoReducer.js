@@ -1,5 +1,6 @@
 import {
-	COMPRAR_CARTAS
+	COMPRAR_CARTAS,
+	JOGAR_CARTA,
 } from '../actions'
 
 const initialState = {
@@ -62,6 +63,14 @@ export const gameInfoReducer = (state=initialState, action) => {
 				state.mapa_cartas[action.cartas[i].id] = action.jogador
 			}
 			return state
+		case JOGAR_CARTA:
+			return {
+				...state,
+				mapa_cartas: {
+					...state.mapa_cartas,
+					[action.carta.id]: 'descarte'
+				}
+			}
 		default:
 			return state
 	}

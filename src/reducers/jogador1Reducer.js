@@ -57,6 +57,11 @@ export const jogador1Reducer = (state = initialState, action) => {
 						return carta
 					})
 				}
+			case JOGAR_CARTA:
+				return {
+					...state,
+					mao: state.mao.filter(carta => carta.id !== action.carta.id)
+				}
 			default:
 				return state
 		}
