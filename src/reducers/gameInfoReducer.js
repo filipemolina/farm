@@ -1,6 +1,7 @@
 import {
 	COMPRAR_CARTAS,
 	JOGAR_CARTA,
+	TOGGLE_MENU_COMPRA,
 } from '../actions'
 
 const initialState = {
@@ -72,6 +73,12 @@ export const gameInfoReducer = (state=initialState, action) => {
 					...state.mapa_cartas,
 					[action.carta.id]: 'descarte'
 				}
+			}
+		case TOGGLE_MENU_COMPRA:
+			return{
+				...state,
+				mostrar_popup: !state.mostrar_popup,
+				campo_selecionado: action.campo_id
 			}
 		default:
 			return state

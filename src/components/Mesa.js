@@ -8,10 +8,11 @@ const StldMesa = styled.div`
 	height: 230vh;
 	background-color: blue;
 	transform: perspective(980px) rotateX(50deg) translateZ(-70px) translateY(-110vh);
-  perspective: 1260px;
+  perspective: 10000px;
   position: relative;
   background-image: url(/bg/madeira.jpg);
   transform-style: preserve-3d;
+  perspective-origin: 50%;
 
   &:before{
   	content: '';

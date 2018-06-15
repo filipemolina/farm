@@ -12,6 +12,7 @@ export const PONTUAR               = 'PONTUAR'
 export const EMBARALHAR            = 'EMBARALHAR'
 export const VIRAR_CARTA           = 'VIRAR_CARTA'
 export const COLOCAR_CARTA_NO_DECK = 'COLOCAR_CARTA_NO_DECK'
+export const TOGGLE_MENU_COMPRA     = 'TOGGLE_MENU_COMPRA'
 
 /////////////////////////////////// Action Dispatchers
 
@@ -47,4 +48,24 @@ export const ganharFelicidade = (jogador, qtd) => ({
 	type: GANHAR_FELICIDADE,
 	jogador,
 	qtd
+})
+
+export const toggleMenuCompra = campo_id => ({
+	type: TOGGLE_MENU_COMPRA,
+	campo_id
+})
+
+export const plantar = (jogador, campo_id, tipo, nome) => ({
+	type: PLANTAR,
+	jogador,
+	campo_id,
+	nome,
+	tipo,
+})
+
+export const construir = (jogador, campo_id, nome) => ({
+	type: CONSTRUIR,
+	jogador,
+	campo_id,
+	nome
 })

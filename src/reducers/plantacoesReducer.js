@@ -3,7 +3,9 @@ import {
 } from '../actions'
 
 const initialState = [
-	{ nome: "" }
+	{ nome: "trigo" },
+	{ nome: "milho" },
+	{ nome: "morango" },
 ]
 
 export const plantacoesReducer = (state=initialState, action) => {

@@ -83,9 +83,42 @@ export const jogador1Reducer = (state = initialState, action) => {
 					})
 				}
 			case GANHAR_FELICIDADE:
+				let novo_valor = state.felicidade + action.qtd
+				if(novo_valor > 8)
+					novo_valor = 8
+				else if(novo_valor < 1)
+					novo_valor = 1
 				return {
 					...state,
-					felicidade: state.felicidade + action.qtd
+					felicidade: novo_valor
+				}
+			case PLANTAR:
+				return {
+					...state,
+					campos: state.campos.map(campo => {
+						if(campo.id === action.campo_id){
+							campo.construcao = {
+								tipo: action.tipo,
+								nome: action.nome,
+								classe: "",
+							}
+						}
+						return campo
+					})
+				}
+			case CONSTRUIR:
+				return {
+					...state,
+					campos: state.campos.map(campo => {
+						if(campo.id === action.campo_id){
+							campo.construcao = {
+								tipo: "construcao",
+								nome: action.nome,
+								classe: "",
+							}
+						}
+						return campo
+					})
 				}
 			default:
 				return state
