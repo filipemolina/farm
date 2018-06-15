@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+
 import Tabuleiro from './components/tabuleiro'
 import Mao from './components/Mao'
 import Mesa from './components/Mesa'
 import Descarte from './components/Descarte'
 import Deck from './components/Deck'
 import Popup from './components/Popup'
-
-import { connect } from 'react-redux'
 
 //////////////////////////////////////////////////////////////
 // Transformar o Popup, Tabuleiro, Deck e Bloco em pastas
