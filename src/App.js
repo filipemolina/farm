@@ -23,6 +23,7 @@ import {
   virarCarta,
   jogarCarta,
   virarConstrucao,
+  ganharFelicidade,
 }  from './actions'
 
 // Styled Component
@@ -52,17 +53,10 @@ class App extends Component {
   render() {
 
     const { 
-      mao, 
-      jogadorAtual, 
-      jogador1, 
-      jogador2, 
-      virarCarta, 
-      jogarCarta, 
-      descarte,
-      virarConstrucao,
-      comprarCartas,
-      deck,
-      mostrarPopup
+      mao,      jogadorAtual,    jogador1, 
+      jogador2, virarCarta,      jogarCarta, 
+      descarte, virarConstrucao, comprarCartas,
+      deck,     mostrarPopup,    ganharFelicidade,
     } = this.props
 
     return (
@@ -81,7 +75,9 @@ class App extends Component {
           <Tabuleiro 
             jogador={1} 
             campos={jogador1.campos} 
-            virarConstrucao={(campo_id => virarConstrucao('jogador1', campo_id))} 
+            felicidade={jogador1.felicidade}
+            virarConstrucao={(campo_id => virarConstrucao('jogador1', campo_id))}
+            ganharFelicidade={(qtd) => ganharFelicidade('jogador1', qtd)}
           />
           <Descarte cartas={descarte} />
           <Deck comprar={() => comprarCartas(jogadorAtual, [deck[0]])} />
@@ -107,6 +103,7 @@ const mapDispatchToProps = dispatch => ({
   virarCarta: (jogador, id) => dispatch(virarCarta(jogador, id)),
   jogarCarta: (jogador, carta) => dispatch(jogarCarta(jogador, carta)),
   virarConstrucao: (jogador, campo_id) => dispatch(virarConstrucao(jogador, campo_id)),
+  ganharFelicidade: (jogador, qtd) => dispatch(ganharFelicidade(jogador, qtd)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

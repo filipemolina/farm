@@ -42,3 +42,9 @@ export const virarConstrucao = (jogador, campo_id) => ({
 	jogador,
 	campo_id
 })
+
+export const ganharFelicidade = (jogador, qtd) => ({
+	type: GANHAR_FELICIDADE,
+	jogador,
+	qtd
+})
