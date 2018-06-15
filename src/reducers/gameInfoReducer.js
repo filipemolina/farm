@@ -7,7 +7,7 @@ const initialState = {
 	jogadorAtual: 'jogador1',
 	oponente: 'jogador2',
 	campo_selecionado: "",
-	mostrar_popup: true,
+	mostrar_popup: false,
 	mapa_cartas: { /* Mapeia o ID das cartas com o lugar onde elas se encontram */
 		1 : 'deck',
 		2 : 'deck',

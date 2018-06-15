@@ -33,6 +33,7 @@ const initialState = {
 	],
 	produtos: [],
 	pontos: 0,
+	felicidade: 1,
 }
 
 export const jogador1Reducer = (state = initialState, action) => {
@@ -80,6 +81,11 @@ export const jogador1Reducer = (state = initialState, action) => {
 						}
 						return campo
 					})
+				}
+			case GANHAR_FELICIDADE:
+				return {
+					...state,
+					felicidade: state.felicidade + action.qtd
 				}
 			default:
 				return state
