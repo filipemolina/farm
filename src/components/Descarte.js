@@ -6,10 +6,8 @@ const StldDescarte = styled.div`
 	width: 12vw;
 	height: 16vw;
 	position: absolute;
-	top: 50%;
-	margin-top: -8vw;
-	left: 50%;
-	margin-left: -6vw;
+	top: 97vh;
+	left: 18vw;
 	border: 0.8vw dashed rgba(255,255,255,0.7);
 `
 class Descarte extends Component {
@@ -20,7 +18,10 @@ class Descarte extends Component {
 		return(
 			<StldDescarte>
 				{cartas.length ? (
-					<Carta carta={cartas[cartas.length-1]} />
+					<Carta 
+						imagem={`/cartas/${cartas[cartas.length-1].tipo}.png`} 
+						virada={cartas[cartas.length-1].virada}
+					/>
 				):""}
 			</StldDescarte>
 		)

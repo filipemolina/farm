@@ -24,11 +24,13 @@ class Mao extends Component {
 			<StldMao>
 				{cartas.map(carta => (
 					<Carta 
-						carta={carta} 
+						imagem={`/cartas/${carta.tipo}.png`} 
+						virada={carta.virada}
 						key={carta.id} 
 						virar={() => virarCarta(carta.id)} 
 						jogar={() => jogarCarta(carta)}
 						mostrarBotoes={mostrarBotoes}
+						hover
 					/>
 				))}
 			</StldMao>

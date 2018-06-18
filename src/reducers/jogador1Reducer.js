@@ -8,7 +8,8 @@ import {
 	VENDER,
 	GANHAR_FELICIDADE,
 	PONTUAR,
-	VIRAR_CARTA
+	VIRAR_CARTA,
+	COMPLETAR_OBJETIVO,
 } from '../actions'
 
 const initialState = {
@@ -34,6 +35,8 @@ const initialState = {
 	produtos: [],
 	pontos: 0,
 	felicidade: 1,
+	objetivos: [],
+	nome: 'jogador1'
 }
 
 export const jogador1Reducer = (state = initialState, action) => {
@@ -119,6 +122,14 @@ export const jogador1Reducer = (state = initialState, action) => {
 						}
 						return campo
 					})
+				}
+			case COMPLETAR_OBJETIVO:
+				return {
+					...state,
+					objetivos: [
+						...state.objetivos,
+						action.carta
+					]
 				}
 			default:
 				return state

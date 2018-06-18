@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Felicidade from './Felicidade'
 import Bloco from './Bloco'
 import Sinais from './Sinais'
+import ObjetivosCompletos from './ObjetivosCompletos'
 
 const Tab = styled.div`
 	width: 55vw;
@@ -58,17 +59,16 @@ class Tabuleiro extends React.Component{
 
 		const { 
 			jogador, 
-			campos, 
 			virarConstrucao, 
-			felicidade, 
 			ganharFelicidade,
 			toggleMenu,
 		} = this.props
 
 		return(
-			<Tab style={jogador === 1 ? tabuleiro1 : ""}>
+			<Tab style={jogador.nome === 'jogador1' ? tabuleiro1 : ""}>
+				<ObjetivosCompletos cartas={jogador.objetivos}/>
 				<Campos>
-					{campos.map(campo => (
+					{jogador.campos.map(campo => (
 						<Campo key={campo.id} className={`campo${campo.id}`}>
 							{campo.construcao ? (
 								<Bloco 
@@ -82,7 +82,7 @@ class Tabuleiro extends React.Component{
 						</Campo>
 					))}
 				</Campos>
-				<Felicidade bgColor="orange" nivel={felicidade}/>
+				<Felicidade bgColor="orange" nivel={jogador.felicidade}/>
 				<Sinais mudarFelicidade={ganharFelicidade} />
 			</Tab>
 		)

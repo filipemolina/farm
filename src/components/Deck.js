@@ -20,6 +20,20 @@ const Cubo = styled.div`
 	transform-style: preserve-3d
 `
 
+const CuboVirado = styled.div`
+	width: ${largura}vw;
+	height: ${altura}vw;
+	position: absolute;
+	top: 65%;
+	left: 5vw;
+	margin-top: -8vw;
+	box-shadow: 5px 5px 40px;
+	cursor: pointer;
+
+	perspective: 600px;
+	transform-style: preserve-3d
+	transform: rotateZ(90deg)
+`
 const Face = styled.div`
 	position: absolute;
 
@@ -77,17 +91,30 @@ const Face = styled.div`
 class Deck extends Component {
 	render(){
 
-		const { comprar } = this.props
+		const { comprar, imagem, virado } = this.props
 
 		return(
-			<Cubo onClick={comprar}>
-				<Face className="top" style={{ backgroundImage: 'url(/bg/back.jpg)' }}></Face>
-				<Face className="bottom"></Face>
-				<Face className="front"></Face>
-				<Face className="back"></Face>
-				<Face className="right"></Face>
-				<Face className="left"></Face>
-			</Cubo>
+			<div>
+				{virado ? (
+					<CuboVirado onClick={comprar}>
+						<Face className="top" style={{ backgroundImage: `url(${imagem})` }}></Face>
+						<Face className="bottom"></Face>
+						<Face className="front"></Face>
+						<Face className="back"></Face>
+						<Face className="right"></Face>
+						<Face className="left"></Face>
+					</CuboVirado>
+				) : (
+					<Cubo onClick={comprar}>
+						<Face className="top" style={{ backgroundImage: `url(${imagem})` }}></Face>
+						<Face className="bottom"></Face>
+						<Face className="front"></Face>
+						<Face className="back"></Face>
+						<Face className="right"></Face>
+						<Face className="left"></Face>
+					</Cubo>
+				)}
+			</div>
 		)
 	}
 }

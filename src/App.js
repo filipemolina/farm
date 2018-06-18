@@ -8,6 +8,7 @@ import Mesa from './components/Mesa'
 import Descarte from './components/Descarte'
 import Deck from './components/Deck'
 import Popup from './components/Popup'
+import Objetivos from './components/Objetivos'
 
 //////////////////////////////////////////////////////////////
 // Criar os contadores de dinheiro e pontos
@@ -25,6 +26,9 @@ import {
   toggleMenuCompra,
   plantar,
   construir,
+  embaralharObjetivos,
+  sacarObjetivos,
+  completarObjetivo
 }  from './actions'
 
 // Styled Component
@@ -41,7 +45,15 @@ class App extends Component {
   
   componentDidMount = () => {
     
-    const { comprarCartas, jogadorAtual, embaralhar, deck } = this.props
+    const { 
+      comprarCartas, 
+      jogadorAtual, 
+      embaralhar, 
+      embaralharObjetivos, 
+      sacarObjetivos, 
+      deck,
+      deckObjetivos,
+    } = this.props
 
     // Embaralhar o deck principal
     embaralhar()
@@ -49,6 +61,8 @@ class App extends Component {
     // Comprar as 5 pimeiras cartas do deck
     // (array.slice() cria um novo array e não modifica o original)
     comprarCartas(jogadorAtual, deck.slice(0, 5))
+
+    sacarObjetivos(deckObjetivos.slice(0,3))
   }
 
   render() {
@@ -60,7 +74,7 @@ class App extends Component {
       deck,             mostrarPopup,     ganharFelicidade,
       toggleMenuCompra, animais,          construcoes,
       plantacoes,       campoSelecionado, plantar,
-      construir,
+      construir,        objetivosAbertos, completarObjetivo,
     } = this.props
 
     return (
@@ -94,15 +108,17 @@ class App extends Component {
         ):""}
         <Mesa>
           <Tabuleiro 
-            jogador={1} 
-            campos={jogador1.campos} 
-            felicidade={jogador1.felicidade}
+            jogador={jogador1}
             virarConstrucao={(campo_id => virarConstrucao('jogador1', campo_id))}
             ganharFelicidade={(qtd) => ganharFelicidade('jogador1', qtd)}
             toggleMenu={toggleMenuCompra}
           />
           <Descarte cartas={descarte} />
-          <Deck comprar={() => comprarCartas(jogadorAtual, [deck[0]])} />
+          {/* Deck de Compra */}
+          <Deck comprar={() => comprarCartas(jogadorAtual, [deck[0]])} imagem={"/bg/back.jpg"} />
+          {/* Deck de Objetivos */}
+          <Deck comprar={() => console.log("Comprou objetivo")} imagem={"/bg/backobjetivo.jpg"} virado/>
+          <Objetivos cartas={objetivosAbertos} completar={(carta) => completarObjetivo(jogadorAtual, carta)} />
         </Mesa>
       </Game>
     );
@@ -115,6 +131,8 @@ const mapStateToProps = (state, props) => ({
   jogador2:         state.jogador2,
   descarte:         state.descarte,
   deck:             state.deck,
+  deckObjetivos:    state.objetivos.deck,
+  objetivosAbertos: state.gameInfo.objetivos,
   mao:              state[state.gameInfo.jogadorAtual].mao,
   mostrarPopup:     state.gameInfo.mostrar_popup,
   plantacoes:       state.plantacoes,
@@ -124,15 +142,18 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  comprarCartas:    (jogador, cartas)               => dispatch(comprarCartas(jogador, cartas)),
-  embaralhar:       ()                              => dispatch(embaralhar()),
-  virarCarta:       (jogador, id)                   => dispatch(virarCarta(jogador, id)),
-  jogarCarta:       (jogador, carta)                => dispatch(jogarCarta(jogador, carta)),
-  virarConstrucao:  (jogador, campo_id)             => dispatch(virarConstrucao(jogador, campo_id)),
-  ganharFelicidade: (jogador, qtd)                  => dispatch(ganharFelicidade(jogador, qtd)),
-  toggleMenuCompra: (campo_id)                      => dispatch(toggleMenuCompra(campo_id)),
-  plantar:          (jogador, campo_id, tipo, nome) => dispatch(plantar(jogador, campo_id, tipo, nome)),
-  construir:        (jogador, campo_id, nome)       => dispatch(construir(jogador, campo_id, nome)),
+  comprarCartas:       (jogador, cartas)               => dispatch(comprarCartas(jogador, cartas)),
+  embaralhar:          ()                              => dispatch(embaralhar()),
+  virarCarta:          (jogador, id)                   => dispatch(virarCarta(jogador, id)),
+  jogarCarta:          (jogador, carta)                => dispatch(jogarCarta(jogador, carta)),
+  virarConstrucao:     (jogador, campo_id)             => dispatch(virarConstrucao(jogador, campo_id)),
+  ganharFelicidade:    (jogador, qtd)                  => dispatch(ganharFelicidade(jogador, qtd)),
+  toggleMenuCompra:    (campo_id)                      => dispatch(toggleMenuCompra(campo_id)),
+  plantar:             (jogador, campo_id, tipo, nome) => dispatch(plantar(jogador, campo_id, tipo, nome)),
+  construir:           (jogador, campo_id, nome)       => dispatch(construir(jogador, campo_id, nome)),
+  embaralharObjetivos: ()                              => dispatch(embaralharObjetivos()),
+  sacarObjetivos:      (cartas)                        => dispatch(sacarObjetivos(cartas)),
+  completarObjetivo:   (jogador, carta)                => dispatch(completarObjetivo(jogador, carta)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

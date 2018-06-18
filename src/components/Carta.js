@@ -40,7 +40,7 @@ const Imagem = styled.img`
 	border-radius: 1vh;
 	transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
 `
-const StldCarta = styled.div`
+const StldCartaHover = styled.div`
 	width: 11vw;
 	height: 15vw;
 	margin-left: 0.5vw;
@@ -61,32 +61,73 @@ const StldCarta = styled.div`
 		display: block;
 	}
 `
+const StldCarta = styled.div`
+	width: 11vw;
+	height: 15vw;
+	margin-left: 0.5vw;
+	cursor: pointer;
+	position: relative;
+	transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+
+	&:hover ${BotaoVirar} {
+		display: block;
+	}
+
+	&:hover ${BotaoJogar} {
+		display: block;
+	}
+`
 const classVirada = {
 	transform: 'rotateZ(180deg)',
 	boxShadow: '#565656 -5px -5px 10px'
 }
 
+const hover = {
+	zIndex: '100',
+	transform: 'scale(1.5) translateY(-5vh)'
+}
+
 class Carta extends Component {
 	render(){
 
-		const { carta, virar, jogar, mostrarBotoes } = this.props
+		const { virada, hover, imagem, virar, jogar, mostrarBotoes } = this.props
 
 		return(
-			<StldCarta>
-				{mostrarBotoes ? (
-					<div>
-						<BotaoJogar onClick={jogar} />
-						<BotaoVirar 
-							className="virar"
-							onClick={virar}
+			<div>
+				{hover ? (
+					<StldCartaHover>
+						{mostrarBotoes ? (
+							<div>
+								<BotaoJogar onClick={jogar} />
+								<BotaoVirar 
+									className="virar"
+									onClick={virar}
+								/>
+							</div>
+						): ""}
+						<Imagem 
+							src={imagem} 
+							style={virada ? classVirada : {}}
 						/>
-					</div>
-				): ""}
-				<Imagem 
-					src={`/cartas/${carta.tipo}.png`} 
-					style={carta.virada ? classVirada : {}}
-				/>
-			</StldCarta>
+					</StldCartaHover>
+				) : (
+					<StldCarta>
+						{mostrarBotoes ? (
+							<div>
+								<BotaoJogar onClick={jogar} />
+								<BotaoVirar 
+									className="virar"
+									onClick={virar}
+								/>
+							</div>
+						): ""}
+						<Imagem 
+							src={imagem} 
+							style={virada ? classVirada : {}}
+						/>
+					</StldCarta>
+				)}
+			</div>
 		)
 	}
 }

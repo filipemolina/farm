@@ -12,7 +12,10 @@ export const PONTUAR               = 'PONTUAR'
 export const EMBARALHAR            = 'EMBARALHAR'
 export const VIRAR_CARTA           = 'VIRAR_CARTA'
 export const COLOCAR_CARTA_NO_DECK = 'COLOCAR_CARTA_NO_DECK'
-export const TOGGLE_MENU_COMPRA     = 'TOGGLE_MENU_COMPRA'
+export const TOGGLE_MENU_COMPRA    = 'TOGGLE_MENU_COMPRA'
+export const EMBARALHAR_OBJETIVOS  = 'EMBARALHAR_OBJETIVOS'
+export const SACAR_OBJETIVOS       = 'SACAR_OBJETIVOS'
+export const COMPLETAR_OBJETIVO    = 'COMPLETAR_OBJETIVO'
 
 /////////////////////////////////// Action Dispatchers
 
@@ -68,4 +71,19 @@ export const construir = (jogador, campo_id, nome) => ({
 	jogador,
 	campo_id,
 	nome
+})
+
+export const embaralharObjetivos = () => ({
+	type: EMBARALHAR_OBJETIVOS,
+})
+
+export const sacarObjetivos = (cartas) => ({
+	type: SACAR_OBJETIVOS,
+	cartas,
+})
+
+export const completarObjetivo = (jogador, carta) => ({
+	type: COMPLETAR_OBJETIVO,
+	jogador,
+	carta,
 })

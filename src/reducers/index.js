@@ -8,6 +8,7 @@ import { produtosReducer } from './produtosReducer'
 import { gameInfoReducer } from './gameInfoReducer'
 import { descarteReducer } from './descarteReducer'
 import { animaisReducer } from './animaisReducer'
+import { objetivosReducer } from './objetivosReducer'
 
 export default combineReducers({
 	jogador1: jogador1Reducer,
@@ -19,4 +20,5 @@ export default combineReducers({
 	produtos: produtosReducer,
 	gameInfo: gameInfoReducer,
 	descarte: descarteReducer,
+	objetivos: objetivosReducer,
 })

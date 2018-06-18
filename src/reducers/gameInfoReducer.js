@@ -2,6 +2,8 @@ import {
 	COMPRAR_CARTAS,
 	JOGAR_CARTA,
 	TOGGLE_MENU_COMPRA,
+	SACAR_OBJETIVOS,
+	COMPLETAR_OBJETIVO,
 } from '../actions'
 
 const initialState = {
@@ -9,6 +11,7 @@ const initialState = {
 	oponente: 'jogador2',
 	campo_selecionado: "",
 	mostrar_popup: false,
+	objetivos: [],
 	mapa_cartas: { /* Mapeia o ID das cartas com o lugar onde elas se encontram */
 		1 : 'deck',
 		2 : 'deck',
@@ -79,6 +82,19 @@ export const gameInfoReducer = (state=initialState, action) => {
 				...state,
 				mostrar_popup: !state.mostrar_popup,
 				campo_selecionado: action.campo_id
+			}
+		case SACAR_OBJETIVOS:
+			return {
+				...state,
+				objetivos: [
+					...state.objetivos,
+					...action.cartas
+				]
+			}
+		case COMPLETAR_OBJETIVO:
+			return {
+				...state,
+				objetivos: state.objetivos.filter(carta => carta.id !== action.carta.id)
 			}
 		default:
 			return state
