@@ -9,6 +9,7 @@ import Descarte from './components/Descarte'
 import Deck from './components/Deck'
 import Popup from './components/Popup'
 import Objetivos from './components/Objetivos'
+import Produtos from './components/Produtos'
 
 //////////////////////////////////////////////////////////////
 // Criar os contadores de dinheiro e pontos
@@ -75,6 +76,7 @@ class App extends Component {
       toggleMenuCompra, animais,          construcoes,
       plantacoes,       campoSelecionado, plantar,
       construir,        objetivosAbertos, completarObjetivo,
+      deckObjetivos,    sacarObjetivos
     } = this.props
 
     return (
@@ -86,6 +88,9 @@ class App extends Component {
           jogarCarta={carta => jogarCarta(jogadorAtual, carta)}
           mostrarBotoes={true}
         />
+
+        <Produtos />
+
         {mostrarPopup ? (
           <Popup 
             objetos={{
@@ -114,10 +119,13 @@ class App extends Component {
             toggleMenu={toggleMenuCompra}
           />
           <Descarte cartas={descarte} />
+          
           {/* Deck de Compra */}
           <Deck comprar={() => comprarCartas(jogadorAtual, [deck[0]])} imagem={"/bg/back.jpg"} />
+          
           {/* Deck de Objetivos */}
-          <Deck comprar={() => console.log("Comprou objetivo")} imagem={"/bg/backobjetivo.jpg"} virado/>
+          <Deck comprar={() => sacarObjetivos([deckObjetivos[0]])} imagem={"/bg/backobjetivo.jpg"} virado/>
+
           <Objetivos cartas={objetivosAbertos} completar={(carta) => completarObjetivo(jogadorAtual, carta)} />
         </Mesa>
       </Game>
