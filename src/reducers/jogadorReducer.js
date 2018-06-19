@@ -4,12 +4,13 @@ import {
 	CONSTRUIR,
 	VIRAR_CONSTRUCAO,
 	PLANTAR,
-	ATIVAR,
+	PRODUZIR,
 	VENDER,
 	GANHAR_FELICIDADE,
 	PONTUAR,
 	VIRAR_CARTA,
 	COMPLETAR_OBJETIVO,
+	GANHAR_DINHEIRO,
 } from '../actions'
 
 const initialState = {
@@ -43,15 +44,18 @@ const initialState = {
 		bolo_morango: 0,
 	},
 	pontos: 0,
+	dinheiro: 0,
 	felicidade: 1,
 	objetivos: [],
 	nome: 'jogador1'
 }
 
-export const jogador1Reducer = (state = initialState, action) => {
+export const jogadorReducer = (jogador) => (state = initialState, action) => {
+
+	state.nome = jogador
 
 	//Realizar modificações apenas caso o jogador atual seja o jogador 1
-	if(action.jogador && action.jogador === 'jogador1'){
+	if(action.jogador && action.jogador === jogador){
 
 		switch(action.type){
 			case COMPRAR_CARTAS:
@@ -138,7 +142,27 @@ export const jogador1Reducer = (state = initialState, action) => {
 					objetivos: [
 						...state.objetivos,
 						action.carta
-					]
+					],
+					pontos: state.pontos + action.carta.pontos,
+					dinheiro: state.dinheiro + action.carta.dinheiro
+				}
+			case PONTUAR:
+				return {
+					...state,
+					pontos: state.pontos + action.pontos
+				}
+			case GANHAR_DINHEIRO:
+				return {
+					...state,
+					dinheiro: state.dinheiro + action.qtd
+				}
+			case PRODUZIR:
+				return {
+					...state,
+					produtos: {
+						...state.produtos,
+						[action.produto] : state.produtos[action.produto] + action.qtd
+					}
 				}
 			default:
 				return state

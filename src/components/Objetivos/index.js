@@ -20,7 +20,7 @@ class Objetivos extends Component {
 		return(
 			<StyledObjetivos>
 				{cartas.map(carta => (
-					<Objetivo key={carta.id} tipo={carta.tipo} completar={() => completar(carta)}/>
+					<Objetivo key={carta.id} objetivo={carta} completar={() => completar(carta)}/>
 				))}
 			</StyledObjetivos>
 		)

@@ -5,10 +5,11 @@ export const JOGAR_CARTA           = 'JOGAR_CARTA'
 export const CONSTRUIR             = 'CONSTRUIR'
 export const VIRAR_CONSTRUCAO      = 'VIRAR_CONSTRUCAO'
 export const PLANTAR               = 'PLANTAR'
-export const ATIVAR                = 'ATIVAR'
+export const PRODUZIR              = 'PRODUZIR'
 export const VENDER                = 'VENDER'
 export const GANHAR_FELICIDADE     = 'GANHAR_FELICIDADE'
 export const PONTUAR               = 'PONTUAR'
+export const GANHAR_DINHEIRO       = 'GANHAR_DINHEIRO'
 export const EMBARALHAR            = 'EMBARALHAR'
 export const VIRAR_CARTA           = 'VIRAR_CARTA'
 export const COLOCAR_CARTA_NO_DECK = 'COLOCAR_CARTA_NO_DECK'
@@ -16,6 +17,7 @@ export const TOGGLE_MENU_COMPRA    = 'TOGGLE_MENU_COMPRA'
 export const EMBARALHAR_OBJETIVOS  = 'EMBARALHAR_OBJETIVOS'
 export const SACAR_OBJETIVOS       = 'SACAR_OBJETIVOS'
 export const COMPLETAR_OBJETIVO    = 'COMPLETAR_OBJETIVO'
+export const VIRAR_MESA            = 'VIRAR_MESA'
 
 /////////////////////////////////// Action Dispatchers
 
@@ -86,4 +88,27 @@ export const completarObjetivo = (jogador, carta) => ({
 	type: COMPLETAR_OBJETIVO,
 	jogador,
 	carta,
+})
+
+export const pontuar = (jogador, pontos) => ({
+	type: PONTUAR,
+	jogador,
+	pontos
+})
+
+export const ganharDinheiro = (jogador, qtd) => ({
+	type: GANHAR_DINHEIRO,
+	jogador,
+	qtd
+})
+
+export const virarMesa = () => ({
+	type: VIRAR_MESA,
+})
+
+export const produzir = (jogador, produto, qtd) => ({
+	type: PRODUZIR,
+	jogador,
+	produto,
+	qtd
 })

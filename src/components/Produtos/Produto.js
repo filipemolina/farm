@@ -15,34 +15,16 @@ const Controles = styled.div`
 	right: 0;
 `
 class Produto extends Component {
-
-	state = {
-		qtd: 0
-	}
-
-	aumentar = () => {
-		this.setState(state => ({
-			qtd: state.qtd + 1
-		}))
-	}
-
-	diminuir = () => {
-		this.setState(state => ({
-			qtd: state.qtd - 1
-		}))
-	}
-
 	render() {
 
-		const { imagem } = this.props
-		const { qtd } = this.state
+		const { imagem, qtd, produzir } = this.props
 
 		return (
 			<StyledProduto imagem={imagem}>
 				<Controles>
-					<button onClick={() => this.aumentar()}>+</button>
+					<button onClick={() => produzir(1)}>+</button>
 					<span>{ qtd }</span>
-					<button onClick={() => this.diminuir()}>-</button>
+					<button onClick={() => produzir(-1)}>-</button>
 				</Controles>
 			</StyledProduto>
 		)

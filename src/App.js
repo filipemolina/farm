@@ -10,11 +10,11 @@ import Deck from './components/Deck'
 import Popup from './components/Popup'
 import Objetivos from './components/Objetivos'
 import Produtos from './components/Produtos'
+import Placar from './components/Placar'
 
 //////////////////////////////////////////////////////////////
-// Criar os contadores de dinheiro e pontos
-// Criar o deck de objetivos
-// Girar o tabuleiro
+// Consertar a altura do cubo de felicidade do jogador 2
+// COnsertar a orientação da carta no descarte quando é jogada pelo jogador 2
 
 //Actions Dispatchers
 import { 
@@ -29,7 +29,11 @@ import {
   construir,
   embaralharObjetivos,
   sacarObjetivos,
-  completarObjetivo
+  completarObjetivo,
+  pontuar,
+  ganharDinheiro,
+  virarMesa,
+  produzir,
 }  from './actions'
 
 // Styled Component
@@ -41,6 +45,9 @@ const Game = styled.div`
   display: flex;  
   justify-content: center;
   align-items: center;
+  background-image: url(/bg/bg.jpg);
+  background-size: contain;
+  background-repeat: repeat-x;
 `
 class App extends Component {
   
@@ -48,7 +55,8 @@ class App extends Component {
     
     const { 
       comprarCartas, 
-      jogadorAtual, 
+      jogadorAtual,
+      oponente,
       embaralhar, 
       embaralharObjetivos, 
       sacarObjetivos, 
@@ -62,6 +70,7 @@ class App extends Component {
     // Comprar as 5 pimeiras cartas do deck
     // (array.slice() cria um novo array e não modifica o original)
     comprarCartas(jogadorAtual, deck.slice(0, 5))
+    comprarCartas(oponente, deck.slice(5, 10))
 
     sacarObjetivos(deckObjetivos.slice(0,3))
   }
@@ -76,11 +85,22 @@ class App extends Component {
       toggleMenuCompra, animais,          construcoes,
       plantacoes,       campoSelecionado, plantar,
       construir,        objetivosAbertos, completarObjetivo,
-      deckObjetivos,    sacarObjetivos
+      deckObjetivos,    sacarObjetivos,   pontuar,
+      ganharDinheiro,   virarMesa,        produzir,
     } = this.props
 
     return (
       <Game>
+        <Produtos produtos={this.props[jogadorAtual].produtos} produzir={(produto, qtd) => produzir(jogadorAtual, produto, qtd)} />
+
+        <Placar 
+          dinheiro={this.props[jogadorAtual].dinheiro} 
+          pontos={this.props[jogadorAtual].pontos} 
+          pontuar={(pontos) => pontuar(jogadorAtual, pontos)}
+          ganharDinheiro={(qtd) => ganharDinheiro(jogadorAtual, qtd)}
+          virarMesa={virarMesa}
+        />
+
         <Mao 
           cartas={mao} 
           jogador={jogadorAtual} 
@@ -88,8 +108,6 @@ class App extends Component {
           jogarCarta={carta => jogarCarta(jogadorAtual, carta)}
           mostrarBotoes={true}
         />
-
-        <Produtos />
 
         {mostrarPopup ? (
           <Popup 
@@ -111,13 +129,24 @@ class App extends Component {
             }}
           />
         ):""}
-        <Mesa>
+        <Mesa virada={jogadorAtual === 'jogador2'} >
+
+          {/* Tabuleiro do Primeiro Jogador */}
           <Tabuleiro 
             jogador={jogador1}
             virarConstrucao={(campo_id => virarConstrucao('jogador1', campo_id))}
             ganharFelicidade={(qtd) => ganharFelicidade('jogador1', qtd)}
             toggleMenu={toggleMenuCompra}
           />
+
+          {/* Tabuleiro do Segundo Jogador */}
+          <Tabuleiro 
+            jogador={jogador2}
+            virarConstrucao={(campo_id => virarConstrucao('jogador2', campo_id))}
+            ganharFelicidade={(qtd) => ganharFelicidade('jogador2', qtd)}
+            toggleMenu={toggleMenuCompra}
+          />
+
           <Descarte cartas={descarte} />
           
           {/* Deck de Compra */}
@@ -126,6 +155,7 @@ class App extends Component {
           {/* Deck de Objetivos */}
           <Deck comprar={() => sacarObjetivos([deckObjetivos[0]])} imagem={"/bg/backobjetivo.jpg"} virado/>
 
+          {/* Linha de Objetivos no centro do tabuleiro */}
           <Objetivos cartas={objetivosAbertos} completar={(carta) => completarObjetivo(jogadorAtual, carta)} />
         </Mesa>
       </Game>
@@ -135,6 +165,7 @@ class App extends Component {
 
 const mapStateToProps = (state, props) => ({
   jogadorAtual:     state.gameInfo.jogadorAtual,
+  oponente:         state.gameInfo.oponente,
   jogador1:         state.jogador1,
   jogador2:         state.jogador2,
   descarte:         state.descarte,
@@ -162,6 +193,10 @@ const mapDispatchToProps = dispatch => ({
   embaralharObjetivos: ()                              => dispatch(embaralharObjetivos()),
   sacarObjetivos:      (cartas)                        => dispatch(sacarObjetivos(cartas)),
   completarObjetivo:   (jogador, carta)                => dispatch(completarObjetivo(jogador, carta)),
+  pontuar:             (jogador, pontos)               => dispatch(pontuar(jogador, pontos)),
+  ganharDinheiro:      (jogador, qtd)                  => dispatch(ganharDinheiro(jogador, qtd)),
+  virarMesa:           ()                              => dispatch(virarMesa()),
+  produzir:            (jogador, produto, qtd)         => dispatch(produzir(jogador, produto, qtd)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

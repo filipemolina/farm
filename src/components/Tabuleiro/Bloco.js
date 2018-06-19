@@ -65,7 +65,7 @@ class Bloco extends Component {
 
 		if(tipo === "construcao"){
 			topo = `url(/construcoes/${nome}.png)`
-			fundo = topo
+			fundo = `url(/construcoes/${nome}-back.png)`
 		} else if(tipo === 'plantacao'){
 			topo = `url(/sementes/${nome}.png)`
 			fundo = `url(/cercados/${nome}.png)`

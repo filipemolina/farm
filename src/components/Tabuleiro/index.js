@@ -54,6 +54,14 @@ const tabuleiro1 = {
 	marginLeft: '-27.5vw',
 }
 
+const tabuleiro2 = {
+	position: 'absolute',
+	top: '5vh',
+	left: '50%',
+	marginLeft: '-27.5vw',
+	transform: 'rotateZ(180deg)'
+}
+
 class Tabuleiro extends React.Component{
 	render(){
 
@@ -65,7 +73,7 @@ class Tabuleiro extends React.Component{
 		} = this.props
 
 		return(
-			<Tab style={jogador.nome === 'jogador1' ? tabuleiro1 : ""}>
+			<Tab style={jogador.nome === 'jogador1' ? tabuleiro1 : tabuleiro2}>
 				<ObjetivosCompletos cartas={jogador.objetivos}/>
 				<Campos>
 					{jogador.campos.map(campo => (

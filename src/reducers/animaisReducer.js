@@ -1,6 +1,6 @@
 const initialState = [
-	{ nome: "galinhas" },
-	{ nome: "vacas" },
+	{ nome: "galinhas", preco: 5 },
+	{ nome: "vacas",    preco: 5 },
 ]
 
 export const animaisReducer = (state=initialState, action) => {

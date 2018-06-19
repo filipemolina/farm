@@ -21,12 +21,49 @@ const Carta = styled.div`
 		display: block;
 	}
 `
+const Pontos = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: black;
+	font-size: 35px;
+	width: 4vw;
+	height: 4vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+const Dinheiro = styled.div`
+	position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 6vw;
+  height: 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: white;
+  text-shadow: 5px 4px 11px black;
+  font-weight: bold;
+`
 class Objetivo extends Component {
 	render(){
-		const { tipo, completar, margem } = this.props
+		const { objetivo, completar, margem } = this.props
 		return(
-			<Carta key={tipo} style={{ backgroundImage: `url(/objetivos/${tipo}.png)`, marginTop: margem ? "-8vw" : "" }}>
+			<Carta 
+				key={objetivo.tipo} 
+				style={{ 
+					backgroundImage: `url(/objetivos/${objetivo.tipo}.png)`, 
+					marginTop: margem ? "-8vw" : "",
+				}}>
+				
+				<Pontos>{objetivo.pontos}</Pontos>
+				
 				<BtnCompletar src="/bg/check.png" alt="" onClick={completar}/>
+
+				<Dinheiro>{objetivo.dinheiro}</Dinheiro>
+
 			</Carta>
 		)
 	}

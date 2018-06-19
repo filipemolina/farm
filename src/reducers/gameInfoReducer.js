@@ -4,6 +4,7 @@ import {
 	TOGGLE_MENU_COMPRA,
 	SACAR_OBJETIVOS,
 	COMPLETAR_OBJETIVO,
+	VIRAR_MESA
 } from '../actions'
 
 const initialState = {
@@ -95,6 +96,12 @@ export const gameInfoReducer = (state=initialState, action) => {
 			return {
 				...state,
 				objetivos: state.objetivos.filter(carta => carta.id !== action.carta.id)
+			}
+		case VIRAR_MESA:
+			return {
+				...state,
+				jogadorAtual: state.oponente,
+				oponente: state.jogadorAtual,
 			}
 		default:
 			return state

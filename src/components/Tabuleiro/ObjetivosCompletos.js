@@ -21,7 +21,7 @@ class ObjetivosCompletos extends Component {
 		return(
 			<Box>
 				{cartas.map((carta, i) => (
-					<Objetivo key={carta.tipo} tipo={carta.tipo} margem={i!==0}/>
+					<Objetivo key={carta.tipo} objetivo={carta} margem={i!==0}/>
 				))}
 			</Box>
 		)
