@@ -49,7 +49,7 @@ const initialState = {
 	objetivos: []
 }
 
-export const jogadorReducer = (jogador) => (state = initialState, action) => {
+export const jogador2Reducer = (jogador) => (state = initialState, action) => {
 
 	// Definir se é jogador1 ou jogador2 (como chamado no index.js dessa pasta)
 	state.nome = jogador

@@ -43,8 +43,7 @@ class Conteudo extends Component {
 						{plantacoes.map(plantacao => (
 							<Item 
 								key={plantacao.nome} 
-								pasta="cercados" 
-								nome={plantacao.nome} 
+								item={plantacao} 
 								click={() => plantar("plantacao", plantacao.nome)} 
 							/>
 						))}
@@ -55,8 +54,7 @@ class Conteudo extends Component {
 						{animais.map(animal => (
 							<Item 
 								key={animal.nome} 
-								pasta="cercados" 
-								nome={animal.nome} 
+								item={animal} 
 								click={() => plantar("animal", animal.nome)}
 							/>
 						))}
@@ -67,8 +65,7 @@ class Conteudo extends Component {
 						{construcoes.map(construcao => (
 							<Item 
 								key={construcao.nome} 
-								pasta="construcoes" 
-								nome={construcao.nome} 
+								item={construcao} 
 								click={() => construir(construcao.nome)}
 							/>
 						))}

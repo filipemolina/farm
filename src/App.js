@@ -14,7 +14,9 @@ import Placar from './components/Placar'
 
 //////////////////////////////////////////////////////////////
 // Consertar a altura do cubo de felicidade do jogador 2
-// COnsertar a orientação da carta no descarte quando é jogada pelo jogador 2
+// Consertar a orientação da carta no descarte quando é jogada pelo jogador 2
+// Quando o deck acabar, embaralhar o descarte no deck
+// Descontar o preço das construções e plantações quando forem feitas
 
 //Actions Dispatchers
 import { 

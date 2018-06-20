@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { construcoesReducer } from './construcoesReducer'
 import { deckReducer } from './deckReducer'
 import { jogadorReducer } from './jogadorReducer'
+import { jogador2Reducer } from './jogador2Reducer'
 import { plantacoesReducer } from './plantacoesReducer'
 import { produtosReducer } from './produtosReducer'
 import { gameInfoReducer } from './gameInfoReducer'
@@ -11,7 +12,7 @@ import { objetivosReducer } from './objetivosReducer'
 
 export default combineReducers({
 	jogador1: jogadorReducer('jogador1'),
-	jogador2: jogadorReducer('jogador2'),
+	jogador2: jogador2Reducer('jogador2'),
 	deck: deckReducer,
 	construcoes: construcoesReducer,
 	plantacoes: plantacoesReducer,
